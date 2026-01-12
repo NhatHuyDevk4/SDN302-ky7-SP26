@@ -1,23 +1,33 @@
 // const express = require("express");
 import express from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+
 const app = express();
 
-app.use(express.json());
+// ===== CONFIGURE ENVIRONMENT VARIABLES =====
+dotenv.config();
+// ===== END CONFIGURE ENVIRONMENT VARIABLES =====
 
-// =========== CONNECT TO DATABASE ===========
-mongoose.connect("mongodb+srv://lenhathuy9a6_db_user:lenhathuy123123@cluster0.fa1imwy.mongodb.net/?appName=Cluster0").
-then(() => {
+// ===== MIDDLEWARE =====
+app.use(express.json());
+// ===== END MIDDLEWARE =====
+
+
+// ===== CONNECT TO DATABASE =====
+mongoose.connect(process.env.MONGODB_URL).then(() => {
     console.log("Connected to database");
 }).catch((err) => {
     console.log("Error connecting to database", err);
 });
+// ===== END CONNECT TO DATABASE =====
 
 
+// ===== ROUTES =====
 app.get("/", (request, response) => {
     response.send("Hello World");
 })
-
 app.post("/", (request, response) => {
     const { name, email, password } = request.body;
     console.log(name, email, password);
@@ -33,7 +43,6 @@ app.post("/", (request, response) => {
         }
     );
 })
-
 app.put("/:id", (request, response) => {
     const { id } = request.params;
     console.log("ID của người dùng", id);
@@ -66,10 +75,9 @@ app.put("/:id", (request, response) => {
         }
     );
 })
-
 app.delete("/:id", (request, response) => {
     const { id } = request.params;
-    console.log("ID của người dùng 2", id);
+    console.log("ID của người dùng 2333", id);
     // check trong database có tồn tại id này không
 
     if (!id) {
@@ -91,6 +99,9 @@ app.delete("/:id", (request, response) => {
         }
     );
 })
+// ===== END ROUTES =====
+
+
 
 
 app.listen(3000, () => {

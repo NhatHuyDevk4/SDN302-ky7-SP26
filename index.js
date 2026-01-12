@@ -5,7 +5,6 @@ const app = express();
 
 app.use(express.json());
 
-
 // =========== CONNECT TO DATABASE ===========
 mongoose.connect("mongodb+srv://lenhathuy9a6_db_user:lenhathuy123123@cluster0.fa1imwy.mongodb.net/?appName=Cluster0").
 then(() => {
@@ -70,7 +69,7 @@ app.put("/:id", (request, response) => {
 
 app.delete("/:id", (request, response) => {
     const { id } = request.params;
-    console.log("ID của người dùng", id);
+    console.log("ID của người dùng 2", id);
     // check trong database có tồn tại id này không
 
     if (!id) {

@@ -1,30 +1,11 @@
-// const express = require("express");
 import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-
-
 const app = express();
-
-// ===== CONFIGURE ENVIRONMENT VARIABLES =====
-dotenv.config();
-// ===== END CONFIGURE ENVIRONMENT VARIABLES =====
-
 // ===== MIDDLEWARE =====
 app.use(express.json());
 // ===== END MIDDLEWARE =====
 
 
-// ===== CONNECT TO DATABASE =====
-mongoose.connect(process.env.MONGODB_URL).then(() => {
-    console.log("Connected to database");
-}).catch((err) => {
-    console.log("Error connecting to database", err);
-});
-// ===== END CONNECT TO DATABASE =====
-
-
-// ===== ROUTES =====
+// ===== ROUTES HOME =====
 app.get("/", (request, response) => {
     response.send("Hello World");
 })
@@ -100,18 +81,16 @@ app.delete("/:id", (request, response) => {
     );
 })
 // ===== END ROUTES =====
+export default app;
 
 
 
 
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
-});
+
 
 
 // Mình có tất gồm những phương thức resfultAPI như:
 // get, post, put, delete, patch,
-
 
 // RESTful API là cách thiết kế API theo chuẩn REST để client(web/mobile/app..) giao tiếp với server
 // REST = Representational State Transfer là phong cách thiết kế API

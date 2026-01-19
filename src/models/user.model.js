@@ -15,11 +15,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
+    role: {
+        type: String,
+        enum: ["admin", "user"],
+        default: "user",
     },
-})
+}, {
+    timestamps: true, // tự động tạo createdAt và updatedAt
+});
 
 export default mongoose.model("User", userSchema, "users");
 // Tham số đầu tiên là tên model
@@ -31,6 +34,6 @@ export default mongoose.model("User", userSchema, "users");
 // ==> Theo dõi phiển bản của document
 // ==> Khi cập nhật document, Mongoose sẽ tự động tăng giá trị của _v
 
-// Giả sử 
+// Giả sử
 // ==> Request A đọc user ==> __v = 1
 // ==> Request B đọc user ==> __v = 0

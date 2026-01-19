@@ -1,5 +1,6 @@
 import express from "express";
 import userRoutes from "./routes/user.route.js"
+import authRoutes from "./routes/auth.route.js"
 const app = express();
 // ===== MIDDLEWARE =====
 app.use(express.json());
@@ -8,9 +9,7 @@ app.use(express.json());
 
 // ===== ROUTES USER =====
 app.use("/api/v1/users", userRoutes)
-// app.use("/api/v1/post", postRoutes)
-// app.use("/api/v1/profile", profileRoutes)
-// app.use("/api/v1/authentication", authenticationRoutes)
+app.use("/api/v1/auth", authRoutes)
 
 // ===== END ROUTES USER =====
 export default app;

@@ -10,14 +10,10 @@ router.get("/", (request, response) => {
 })
 router.post("/", async (request, response) => {
     const { name, email, password } = request.body;
-    
+
     try {
         const user = await UserModel.create({ name, email, password });
-        response.status(201).send({
-            status: "success",
-            message: "Tài khoản đã được tạo thành công",
-            data: user,
-        });
+        ok(user, "Tài khoản đã được tạo thành công", 201);
     } catch (error) {
         response.status(500).send({
             status: "error",

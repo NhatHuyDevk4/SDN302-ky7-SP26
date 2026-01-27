@@ -9,6 +9,8 @@ app.use(express.json());
 
 // ===== ROUTES USER =====
 app.use("/api/v1/users", userRoutes)
+
+// ===== ROUTES AUTH =====
 app.use("/api/v1/auth", authRoutes)
 
 // ===== END ROUTES USER =====

@@ -37,7 +37,7 @@ export const loginService = async ({ email, password }) => {
     console.log("Đăng nhập thành công");
     const token = signToken({ id: user._id, role: user.role, });
     console.log("Token sau khi đăng nhập", token);
-    return { user, token };
+    return { token };
 }
 
 

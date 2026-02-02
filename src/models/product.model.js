@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema({
     },
     slug: {
         type: String,
-        unique: true,
+        // unique: true,
         required: true,
     },
     price: {
@@ -25,9 +25,9 @@ const productSchema = new mongoose.Schema({
         default: 0,
     },
     description: {
-        typ: String
+        type: String
     },
-    image: [
+    images: [
         {
             type: String,
         }
@@ -45,4 +45,4 @@ const productSchema = new mongoose.Schema({
     timestamps: true, // tự động tạo createdAt và updatedAt
 });
 
-export default mongoose.model("Product", categoriesSchema, "products");
+export default mongoose.model("Product", productSchema, "products");

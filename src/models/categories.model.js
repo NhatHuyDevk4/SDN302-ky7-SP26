@@ -10,6 +10,9 @@ const categoriesSchema = new mongoose.Schema({
     slug: { // Sau này dùng cho SEO/URL
         type: String,
         unique: true,
+        required: true,
+        trim: true, // xóa khoảng trắng ở đầu và cuối
+        lowercase: true, // chuyển về chữ thường
     }
 }, {
     timestamps: true, // tự động tạo createdAt và updatedAt

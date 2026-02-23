@@ -5,14 +5,19 @@ import { createCategoryService, deleteCategoryService, getDetailCategoryService,
 
 const router = express();
 
+// [GET] /api/categories
 router.get("/", getListCategory)
 
+// [GET] /api/categories/:categoryId
 router.get("/:categoryId", getDetailCategoryService)
 
+// [POST] /api/categories
 router.post("/", protect, createCategoryService)
 
+// [PUT] /api/categories/:categoryId
 router.put("/:categoryId", protect, updateCategoryService)
 
+// [DELETE] /api/categories/:categoryId
 router.delete("/:categoryId", protect, deleteCategoryService)
 
 

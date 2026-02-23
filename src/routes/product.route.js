@@ -1,18 +1,33 @@
 import express from "express";
 
 import { protect } from "../middlewares/auth.middleware.js";
-import { create, deleteProduct, getProductById, list } from "../controllers/product.controller.js";
-
-
+import {
+    create,
+    deleteProduct,
+    getProductById,
+    getProductBySlug,
+    list,
+    updateStatusProductBySlug,
+} from "../controllers/product.controller.js";
 
 const router = express();
 
-router.get("/", list)
+// [GET] /api/products
+router.get("/", list);
 
-router.post("/", protect, create)
+// [POST] /api/products
+router.post("/", protect, create);
 
-router.get("/:id", getProductById)
+// [PUT] /api/products/:slug/status - Đặt route cụ thể lên trước
+router.put("/:slug/status", protect, updateStatusProductBySlug);
 
-router.delete("/:id", protect, deleteProduct)
+// [GET] /api/products/:slug
+router.get("/:slug", getProductBySlug);
+
+// [GET] /api/products/:id
+router.get("/:id", getProductById);
+
+// [DELETE] /api/products/:id
+router.delete("/:id", protect, deleteProduct);
 
 export default router;

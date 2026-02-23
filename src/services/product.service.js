@@ -72,3 +72,21 @@ export const createProduct = async (payload) => {
     const created = await Product.create(payload);
     return created;
 }
+
+
+export const getProductByIdService = async (productId) => {
+    const product = await Product.findById(productId).populate('category');
+    if (!product) {
+        throw new Error("Sản phẩm không tồn tại");
+    }
+    return product;
+}
+
+export const deleteProductByIdService = async (productId) => {
+
+    const product = await Product.findByIdAndDelete(productId);
+    if (!product) {
+        throw new Error("Sản phẩm không tồn tại");
+    }
+    return product;
+}

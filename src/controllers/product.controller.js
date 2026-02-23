@@ -1,6 +1,7 @@
 
-import { createProduct, listProducts } from "../services/product.service.js";
+import { createProduct, deleteProductByIdService, getProductByIdService, listProducts } from "../services/product.service.js";
 import { ok } from "../utils/response.js";
+
 
 
 
@@ -15,3 +16,15 @@ export const create = async (req, res) => {
     return ok(res, product, "Tạo sản phẩm thành công", 201);
 }
 
+export const getProductById = async (req, res) => {
+    console.log("Params:", req.params);
+    const productId = req.params.id;
+    const product = await getProductByIdService(productId);
+    return ok(res, product, "Lấy chi tiết sản phẩm thành công", 200);
+}
+
+export const deleteProduct = async (req, res) => {
+    const productId = req.params.id;
+    const product = await deleteProductByIdService(productId);
+    return ok(res, product, "Xóa sản phẩm thành công", 200);
+}

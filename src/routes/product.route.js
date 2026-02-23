@@ -9,17 +9,18 @@ import {
     list,
     updateStatusProductBySlug,
 } from "../controllers/product.controller.js";
+import { limiter, userLimiter } from "../middlewares/rateLimit.middleware.js";
 
 const router = express();
 
 // [GET] /api/products
-router.get("/", list);
+router.get("/", userLimiter, list);
 
 // [POST] /api/products
 router.post("/", protect, create);
 
 // [PUT] /api/products/:slug/status - Đặt route cụ thể lên trước
-router.put("/:slug/status", protect, updateStatusProductBySlug);
+router.put("/:slug/status", protect, userLimiter, updateStatusProductBySlug);
 
 // [GET] /api/products/:slug
 router.get("/:slug", getProductBySlug);

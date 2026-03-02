@@ -5,7 +5,6 @@ import { addTocart, getCart, removeCartItem } from "../controllers/cart.controll
 
 const router = express();
 
-
 // [GET] /api/cart
 router.get("/", protect, getCart)
 
@@ -14,6 +13,5 @@ router.post("/add", protect, addTocart)
 
 // [DELETE] /api/cart/remove
 router.delete("/remove", protect, removeCartItem)
-
 
 export default router;

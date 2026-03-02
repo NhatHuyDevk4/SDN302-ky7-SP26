@@ -3,7 +3,7 @@ import userRoutes from "./routes/user.route.js"
 import authRoutes from "./routes/auth.route.js"
 import productRoutes from "./routes/product.route.js"
 import categoryRoutes from "./routes/category.route.js";
-
+import cartRoutes from "./routes/cart.route.js";
 import cors from "cors";
 const app = express();
 
@@ -24,13 +24,15 @@ app.use("/api/v1/users", userRoutes)
 // ===== ROUTES AUTH =====
 app.use("/api/v1/auth", authRoutes)
 
-
 // ===== ROUTES PRODUCT =====
 app.use("/api/v1/products", productRoutes)
 // ===== END ROUTES PRODUCT =====
 
 // ===== ROUTES CATEGORY =====
 app.use("/api/v1/categories", categoryRoutes)
+
+// ===== ROUTES CART =====
+app.use("/api/v1/cart", cartRoutes)
 
 // ===== END ROUTES USER =====
 export default app;

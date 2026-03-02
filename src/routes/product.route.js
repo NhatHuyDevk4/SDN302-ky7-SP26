@@ -14,7 +14,7 @@ import { limiter, userLimiter } from "../middlewares/rateLimit.middleware.js";
 const router = express();
 
 // [GET] /api/products
-router.get("/", userLimiter, list);
+router.get("/", list);
 
 // [POST] /api/products
 router.post("/", protect, create);
@@ -23,7 +23,10 @@ router.post("/", protect, create);
 router.put("/:slug/status", protect, userLimiter, updateStatusProductBySlug);
 
 // [GET] /api/products/:slug
-router.get("/:slug", getProductBySlug);
+// router.get("/:slug", getProductBySlug);
+
+router.get("/:id", getProductById);
+
 
 // [GET] /api/products/:id
 router.get("/:id", getProductById);

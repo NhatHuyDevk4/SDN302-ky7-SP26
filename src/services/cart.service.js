@@ -3,8 +3,6 @@ import productModel from "../models/product.model.js";
 import cartModel from "../models/cart.model.js";
 
 
-
-
 export const addToCartServices = async (userId, body, res) => {
     const { productId, quantity } = body;
 
@@ -87,6 +85,63 @@ export const addToCartServices = async (userId, body, res) => {
         throw error;
     }
 
+}
+
+export const removeFromCartServices = async (userId, productId) => {
+
+    // B1: Validate productId
+    if(!mongoose.Types.ObjectId.isValid(productId)) {
+        throw new Error("productId không hợp lệ");
+    }
+
+    // B2: Kiểm tra sản phẩm có tồn tại không
+    const cart = await cartModel.findOne({ user: userId });
+
+    // B3: Nếu giỏ hàng không tồn tại, trả về lỗi
+    if(!cart) {
+        throw new Error("Giỏ hàng không tồn tại");
+    }
+
+    // B4: Kiểm tra sản phẩm có tồn tại trong giỏ hàng không
+    const itemIndex = cart.items.findIndex(item => item.product.toString() === productId);
+
+    // B5: Nếu sản phẩm không tồn tại trong giỏ hàng, trả về lỗi
+    if(itemIndex === -1) {
+        throw new Error("Sản phẩm không tồn tại trong giỏ hàng");
+    }
+
+    // B6: Cập nhật lại stock của sản phẩm
+    const quantity = cart.items[itemIndex].quantity;
+
+
+    // B7: Cập nhật lại stock của sản phẩm
+    await productModel.findByIdAndUpdate(
+        productId,
+        {
+            $inc: { stock: quantity }
+        },
+        {
+            new: true
+        }
+    )
+
+    // B8: Xóa sản phẩm khỏi giỏ hàng
+    cart.items.splice(itemIndex, 1);
+    // splice sẽ xóa phần tử tại index và số lượng phần tử được xóa là 1
+    
+    // B9: Lưu giỏ hàng và trả về kết quả
+    await cart.save();
+
+    // B10: Trả về giỏ hàng đã được cập nhật
+    // return cart.populate("items.product");
+}
+
+export const getCartByUserIdService = async (userId) => {
+    const cart = await cartModel.findOne({ user: userId }).populate("items.product");
+    if (!cart) {
+        throw new Error("Giỏ hàng không tồn tại");
+    }
+    return cart;
 }
 
  //$gte: là toán tử so sánh trong MongoDB, có nghĩa là "lớn hơn hoặc bằng". 
